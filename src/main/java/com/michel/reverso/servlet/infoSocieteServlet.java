@@ -2,12 +2,8 @@ package com.michel.reverso.servlet;
 
 import com.michel.reverso.dao.DaoClient;
 import com.michel.reverso.dao.DaoProspect;
-import com.michel.reverso.exceptions.ControllerException;
-import com.michel.reverso.exceptions.DaoException;
 import com.michel.reverso.metiers.Client;
 import com.michel.reverso.metiers.Prospect;
-import com.michel.reverso.utilitaires.ChoixClientProspect;
-import com.michel.reverso.utilitaires.LoggerReverso;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,12 +12,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
 
-@WebServlet(name = "afficherServlet", value = "/afficherServlet")
-public class afficherServlet extends HttpServlet {
+@WebServlet(name = "infoSocieteServlet", value = "/infoSocieteServlet")
+public class infoSocieteServlet extends HttpServlet {
 
     @Override
     public void init() {
@@ -37,10 +31,10 @@ public class afficherServlet extends HttpServlet {
             try {
                 List<Client> clients = DaoClient.findAll();
                 request.setAttribute("clients", clients);
-                RequestDispatcher rd = request.getRequestDispatcher("/afficher.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/infoSociete.jsp");
                 rd.forward(request, response);
             } catch (Exception e) {
-                RequestDispatcher rd = request.getRequestDispatcher("/afficher.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/erreur.jsp");
                 rd.forward(request, response);
             }
         }
@@ -48,10 +42,10 @@ public class afficherServlet extends HttpServlet {
             try {
                 List<Prospect> prospects = DaoProspect.findAll();
                 request.setAttribute("prospects", prospects);
-                RequestDispatcher rd = request.getRequestDispatcher("/afficher.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/infoSociete.jsp");
                 rd.forward(request, response);
             } catch (Exception e) {
-                RequestDispatcher rd = request.getRequestDispatcher("/afficher.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/erreur.jsp");
                 rd.forward(request, response);
             }
         }

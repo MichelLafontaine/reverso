@@ -1,34 +1,27 @@
 package com.michel.reverso.dao;
 
-
-
 import com.michel.reverso.exceptions.DaoException;
 import com.michel.reverso.utilitaires.LoggerReverso;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 
-/**
- * Classe de connection et fermeture avec la BDD
- */
 public class DaoConnection {
     private static Connection connection = null;
     private static final String MESSAGE_ERREUR = "Problème survenue dans la Base de Données";
-    final Properties dataProperties = new Properties();
-//(InputStream input = Files.newInputStream(path))
-    /**
-     * Connection BDD
-     */
+
     private DaoConnection() throws DaoException {
-        File fichier = new File("database.properties");
-        try (FileInputStream input = new FileInputStream(fichier);){
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("database.properties")) {
+            if (input == null) {
+                throw new DaoException(2, "Fichier de configuration de la base de données introuvable");
+            }
+            Class.forName("com.mysql.jdbc.Driver");
+            Properties dataProperties = new Properties();
             dataProperties.load(input);
             connection = DriverManager.getConnection(
                     dataProperties.getProperty("url"),
@@ -36,24 +29,13 @@ public class DaoConnection {
                     dataProperties.getProperty("password")
             );
         } catch (SQLException e) {
-            StringBuilder messageLog = new StringBuilder("problème ouverture BDD SQLException, ");
-            messageLog.append(e.getMessage()).append(" ").append(e);
-            LoggerReverso.LOGGER.log(Level.SEVERE, messageLog.toString());
-            throw new DaoException(2, MESSAGE_ERREUR);
-        } catch (FileNotFoundException e) {
-            StringBuilder messageLog = new StringBuilder("problème ouverture BDD FileNotFoundException, ");
-            messageLog.append(e.getMessage()).append(" ").append(e);
-            LoggerReverso.LOGGER.log(Level.SEVERE, messageLog.toString());
+            LoggerReverso.LOGGER.log(Level.SEVERE, "Problème ouverture BDD SQLException: " + e.getMessage(), e);
             throw new DaoException(2, MESSAGE_ERREUR);
         } catch (IOException e) {
-            StringBuilder messageLog = new StringBuilder("problème ouverture BDD IOException, ");
-            messageLog.append(e.getMessage()).append(" ").append(e);
-            LoggerReverso.LOGGER.log(Level.SEVERE, messageLog.toString());
+            LoggerReverso.LOGGER.log(Level.SEVERE, "Problème ouverture BDD IOException: " + e.getMessage(), e);
             throw new DaoException(2, MESSAGE_ERREUR);
         } catch (Exception e) {
-            StringBuilder messageLog = new StringBuilder("problème Ouverture BDD, ");
-            messageLog.append(e.getMessage()).append(" ").append(e);
-            LoggerReverso.LOGGER.log(Level.SEVERE, messageLog.toString());
+            LoggerReverso.LOGGER.log(Level.SEVERE, "Problème ouverture BDD: " + e.getMessage(), e);
             throw new DaoException(2, MESSAGE_ERREUR);
         }
     }
@@ -62,27 +44,22 @@ public class DaoConnection {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (connection != null) {
                 try {
-                    LoggerReverso.LOGGER.log(Level.INFO, "fermeture BDD");
                     connection.close();
                 } catch (SQLException e) {
-                    StringBuilder messageLog = new StringBuilder("problème fermeture BDD, ");
-                    messageLog.append(e.getMessage()).append(" ").append(e);
-                    LoggerReverso.LOGGER.log(Level.SEVERE, messageLog.toString());
+                    LoggerReverso.LOGGER.log(Level.SEVERE, "Problème fermeture BDD, " + e.getMessage(), e);
                 }
             }
         }));
     }
 
-    /**
-     * création d'une seule et unique connection avec BDD
-     * Singleton Connection
-     * @return Connection
-     * @throws DaoException si pb connection BDD
-     */
     public static Connection getInstance() throws DaoException {
         if (connection == null) {
-            new DaoConnection();
-            LoggerReverso.LOGGER.log(Level.INFO, "connection BDD réussite");
+            synchronized (DaoConnection.class) {
+                if (connection == null) {
+                    new DaoConnection();
+                    LoggerReverso.LOGGER.log(Level.INFO, "Connexion BDD réussie");
+                }
+            }
         }
         return connection;
     }

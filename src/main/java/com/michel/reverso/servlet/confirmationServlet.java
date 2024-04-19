@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "generalServlet", value = "/generalServlet")
-public class generalServlet extends HttpServlet {
+@WebServlet(name = "confirmationServlet", value = "/confirmationServlet")
+public class confirmationServlet extends HttpServlet {
 
     @Override
     public void init() {
@@ -19,24 +19,17 @@ public class generalServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Récupération des données paramètres
         String societe = request.getParameter("societe");
+        String raisonSociale = request.getParameter("raisonSociale");
         String choix = request.getParameter("choix");
 
         //Stockage des données dans l'objet request
         request.setAttribute("societe", societe);
+        request.setAttribute("raisonSociale", raisonSociale);
         request.setAttribute("choix", choix);
 
-        if (choix.equals("afficher")){
-            RequestDispatcher rd = request.getRequestDispatcher("afficherServlet");
-            rd.forward(request, response);
-        } else if (choix.equals("modifier") || choix.equals("supprimer")) {
-            RequestDispatcher rd = request.getRequestDispatcher("infoSocieteServlet");
-            rd.forward(request, response);
-        } else if (choix.equals("creer")) {
-            RequestDispatcher rd = request.getRequestDispatcher("formulaireServlet");
-            rd.forward(request, response);
-        }
+        RequestDispatcher rd = request.getRequestDispatcher("/confirmation.jsp");
+        rd.forward(request, response);
     }
 
     @Override
