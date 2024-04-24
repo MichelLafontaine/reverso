@@ -18,7 +18,7 @@
         </span>
     <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-reversoLight">
         <li>
-            <a href="#" class="hover:underline me-4 md:me-6">About</a>
+            <a href="${pageContext.request.contextPath}/aboutServlet" class="hover:underline me-4 md:me-6">About</a>
         </li>
         <li>
             <a href="#" class="hover:underline">Contact</a>

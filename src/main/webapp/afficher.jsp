@@ -29,7 +29,7 @@
     <header>
         <jsp:include page="header.jsp"/>
     </header>
-    <main class="flex justify-center flex-grow mt-3 items-start">
+    <main class="flex justify-center flex-grow mt-3 items-start md:mt-28 mt-16">
         <div class="overflow-auto">
             <table class="border border-reversoDark border-2">
                 <tr>

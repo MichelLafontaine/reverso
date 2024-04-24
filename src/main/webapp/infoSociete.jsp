@@ -31,7 +31,7 @@
     </header>
     <input type="hidden" id="societe" name="societe" value="${param.societe}" />
     <input type="hidden" id="choix" name="choix" value="${param.choix}" />
-    <main class="flex mt-3 flex-grow justify-center">
+    <main class="flex md:mt-28 mt-16 flex-grow justify-center">
         <div class="flex flex-col">
             <p class="text-reversoDark font-bold md:text-4xl items-center"> Quel ${param.societe} voulez-vous ${param.choix} ?</p>
             <button id="societe-button" data-dropdown-toggle="societe-dropdown"

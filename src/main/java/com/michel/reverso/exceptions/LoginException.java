@@ -3,11 +3,11 @@ package com.michel.reverso.exceptions;
 /**
  * en cas d'erreur dans le package Controller
  */
-public class ControllerException extends Exception{
+public class LoginException extends Exception{
     /**
      * constructeur sans attribut
      */
-    public ControllerException(){
+    public LoginException(){
 
     }
 
@@ -15,7 +15,7 @@ public class ControllerException extends Exception{
      * constructeur avec message
      * @param message String message pour l'utilisateur
      */
-    public ControllerException (String message){
+    public LoginException(String message){
         super(message);
     }
 }

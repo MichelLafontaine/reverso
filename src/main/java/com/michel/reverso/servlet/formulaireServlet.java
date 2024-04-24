@@ -27,7 +27,6 @@ public class formulaireServlet extends HttpServlet {
     public void init() {
 
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String societe = request.getParameter("societe");
@@ -60,7 +59,6 @@ public class formulaireServlet extends HttpServlet {
         String societe = request.getParameter("societe");
         String choix = request.getParameter("choix");
         String responseRaisonSociale = request.getParameter("raisonSociale");
-        int identifiant = Integer.parseInt(request.getParameter("companyId"));
         String raisonSociale = request.getParameter("rs");
         String numero = request.getParameter("numero");
         String nomRue = request.getParameter("nomRue");
@@ -71,13 +69,15 @@ public class formulaireServlet extends HttpServlet {
         String commentaire = request.getParameter("commentaire");
         try {
             if (choix.equals("supprimer")){
+                int identifiant = Integer.parseInt(request.getParameter("companyId"));
                 if (societe.equals("client")){
                     DaoClient.deleteClient(identifiant);
                 }else if (societe.equals("prospect")){
                     DaoProspect.delete(identifiant);
                 }
-            } else {
+            } else if(choix.equals("modifier")){
                 Adresse adresse = new Adresse(numero, nomRue, ville, cp);
+                int identifiant = Integer.parseInt(request.getParameter("companyId"));
                 if (societe.equals("client")) {
                     Double chiffreAffaire = Double.valueOf(request.getParameter("chiffreAffaire"));
                     int nbreEmploye = Integer.parseInt(request.getParameter("nbreEmploye"));
@@ -86,13 +86,31 @@ public class formulaireServlet extends HttpServlet {
 
                 } else if (societe.equals("prospect")) {
                     int interet = Integer.parseInt(request.getParameter("interet"));
-                    // Date de prospection peut nécessiter une construction spécifique si les valeurs sont séparées
+                    // Date de prospection
                     int day = Integer.parseInt(request.getParameter("dateProspectDay"));
                     int month = Integer.parseInt(request.getParameter("dateProspectMonth"));
                     int year = Integer.parseInt(request.getParameter("dateProspectYear"));
                     LocalDate dateProspection = LocalDate.of(year, month, day);
                     Prospect prospect = new Prospect(identifiant, raisonSociale, email, telephone, commentaire, adresse, dateProspection, interet);
                     DaoProspect.update(prospect);
+                }
+            } else if(choix.equals("creer")){
+                Adresse adresse = new Adresse(numero, nomRue, ville, cp);
+                if (societe.equals("client")) {
+                    Double chiffreAffaire = Double.valueOf(request.getParameter("chiffreAffaire"));
+                    int nbreEmploye = Integer.parseInt(request.getParameter("nbreEmploye"));
+                    Client client = new Client(raisonSociale, email, telephone, commentaire, adresse, chiffreAffaire, nbreEmploye);
+                    DaoClient.create(client);
+
+                } else if (societe.equals("prospect")) {
+                    int interet = Integer.parseInt(request.getParameter("interet"));
+                    // Date de prospection
+                    int day = Integer.parseInt(request.getParameter("dateProspectDay"));
+                    int month = Integer.parseInt(request.getParameter("dateProspectMonth"));
+                    int year = Integer.parseInt(request.getParameter("dateProspectYear"));
+                    LocalDate dateProspection = LocalDate.of(year, month, day);
+                    Prospect prospect = new Prospect(raisonSociale, email, telephone, commentaire, adresse, dateProspection, interet);
+                    DaoProspect.create(prospect);
                 }
             }
         } catch (MetierException | DaoException | SQLException e) {

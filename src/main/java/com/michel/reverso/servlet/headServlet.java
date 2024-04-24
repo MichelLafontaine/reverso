@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "generalServlet", value = "/generalServlet")
-public class generalServlet extends HttpServlet {
+public class headServlet extends HttpServlet {
 
     @Override
     public void init() {

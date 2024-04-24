@@ -28,7 +28,7 @@
 <header>
     <jsp:include page="header.jsp" />
 </header>
-<main class="p-5">
+<main class="p-5 md:mt-20 mt-16">
 <%--    donnée nécessaire pour le js--%>
     <input type="hidden" id="choix" name="choix" value="${param.choix}">
     <input type="hidden" id="societe" name="societe" value="${param.societe}">
