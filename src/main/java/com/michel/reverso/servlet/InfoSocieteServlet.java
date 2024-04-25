@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "infoSocieteServlet", value = "/infoSocieteServlet")
-public class infoSocieteServlet extends HttpServlet {
+public class InfoSocieteServlet extends HttpServlet {
 
     @Override
     public void init() {
@@ -26,7 +26,9 @@ public class infoSocieteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String societe = request.getParameter("societe");
         String choix = request.getParameter("choix");
-
+        //Stockage des données dans l'objet request
+        request.setAttribute("societe", societe);
+        request.setAttribute("choix", choix);
         if (societe.equals("client")){
             try {
                 List<Client> clients = DaoClient.findAll();
@@ -34,7 +36,7 @@ public class infoSocieteServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/infoSociete.jsp");
                 rd.forward(request, response);
             } catch (Exception e) {
-                RequestDispatcher rd = request.getRequestDispatcher("/erreur.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/template/erreur.jsp");
                 rd.forward(request, response);
             }
         }
@@ -45,7 +47,7 @@ public class infoSocieteServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/infoSociete.jsp");
                 rd.forward(request, response);
             } catch (Exception e) {
-                RequestDispatcher rd = request.getRequestDispatcher("/erreur.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/template/erreur.jsp");
                 rd.forward(request, response);
             }
         }

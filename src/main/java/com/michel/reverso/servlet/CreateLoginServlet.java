@@ -1,10 +1,7 @@
 package com.michel.reverso.servlet;
 
 import com.michel.reverso.dao.DaoLogin;
-import com.michel.reverso.exceptions.DaoException;
-import com.michel.reverso.exceptions.MetierException;
 import com.michel.reverso.metiers.Login;
-import com.michel.reverso.utilitaires.PasswordUtils;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "createLoginServlet", value = "/createLoginServlet")
-public class createLoginServlet extends HttpServlet {
+public class CreateLoginServlet extends HttpServlet {
 
     @Override
     public void init() {
@@ -24,7 +21,7 @@ public class createLoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/createLogin.jsp").forward(request, response);
+        request.getRequestDispatcher("/connection/createLogin.jsp").forward(request, response);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class createLoginServlet extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        RequestDispatcher rd = request.getRequestDispatcher("/creationLoginConfirmation.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/connection/creationLoginConfirmation.jsp");
         rd.forward(request, response);
     }
 

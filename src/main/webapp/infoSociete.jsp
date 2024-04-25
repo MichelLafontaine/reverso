@@ -27,7 +27,7 @@
 </head>
 <body class="bg-reversoLight flex flex-col justify-between h-screen">
     <header>
-        <jsp:include page="header.jsp" />
+        <jsp:include page="template/header.jsp" />
     </header>
     <input type="hidden" id="societe" name="societe" value="${param.societe}" />
     <input type="hidden" id="choix" name="choix" value="${param.choix}" />
@@ -77,7 +77,7 @@
         </div>
     </main>
     <footer>
-        <jsp:include page="footer.jsp" />
+        <jsp:include page="template/footer.jsp" />
     </footer>
 <script src="./js/infoSociete.js"></script>
 <script src="./js/accueil.js"></script>

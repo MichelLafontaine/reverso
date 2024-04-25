@@ -24,25 +24,26 @@
 
 
         <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
-            <c:choose>
-                <c:when test="${not empty sessionScope.sessionUser}">
-                    <p class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
-                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
-                    hover:text-reversoDark">${sessionScope.sessionForname} ${sessionScope.sessionName}</p>
-                    <a href="${pageContext.request.contextPath}/deconnectionServlet" class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
-                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
-                    hover:text-reversoDark">Déconnection</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="${pageContext.request.contextPath}/connectServlet" class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
-                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
-                    hover:text-reversoDark">Login</a>
-                    <a href="${pageContext.request.contextPath}/createLoginServlet" class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
-                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
-                    hover:text-reversoDark">Sign up</a>
-                </c:otherwise>
-
-            </c:choose>
+            <div class="grid grid-rows-2 md:flex md:items-center ">
+                <c:choose>
+                    <c:when test="${not empty sessionScope.sessionUser}">
+                        <p class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
+                                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
+                                    hover:text-reversoDark">${sessionScope.sessionForname} ${sessionScope.sessionName}</p>
+                        <a href="${pageContext.request.contextPath}/deconnectionServlet" class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
+                                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
+                                    hover:text-reversoDark">Déconnection</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/connectServlet" class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
+                                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
+                                    hover:text-reversoDark">Login</a>
+                        <a href="${pageContext.request.contextPath}/createLoginServlet" class="text-reversoLight hover:bg-reversoLight focus:ring-4 focus:ring-reversoLight
+                                    font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none
+                                    hover:text-reversoDark">Sign up</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
             <button data-collapse-toggle="menu" type="button" class="inline-flex items-center p-2 w-10 h-10
                     justify-center text-sm text-reversoLight rounded-lg md:hidden hover:bg-reversoLight
                     hover:text-reversoDark focus:outline-none focus:ring-2 focus:ring-reversoLight"
@@ -76,23 +77,23 @@
                         <div class="p-4 pb-0 md:pb-4">
                             <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=client&choix=afficher"
+                                    <a href="${pageContext.request.contextPath}/afficherServlet?societe=client&choix=afficher"
                                        class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Afficher
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=client&choix=creer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
+                                    <a href="${pageContext.request.contextPath}/formulaireServlet?societe=client&choix=creer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Créer
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=client&choix=modifier" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
+                                    <a href="${pageContext.request.contextPath}/infoSocieteServlet?societe=client&choix=modifier" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Modifier
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=client&choix=supprimer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
+                                    <a href="${pageContext.request.contextPath}/infoSocieteServlet?societe=client&choix=supprimer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Supprimer
                                     </a>
                                 </li>
@@ -114,22 +115,22 @@
                         <div class="p-4 pb-0 md:pb-4">
                             <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=prospect&choix=afficher" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
+                                    <a href="${pageContext.request.contextPath}/afficherServlet?societe=prospect&choix=afficher" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Afficher
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=prospect&choix=creer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
+                                    <a href="${pageContext.request.contextPath}/formulaireServlet?societe=prospect&choix=creer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Créer
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=prospect&choix=modifier" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
+                                    <a href="${pageContext.request.contextPath}/infoSocieteServlet?societe=prospect&choix=modifier" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Modifier
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://localhost:8080/reverso_war_exploded/generalServlet?societe=prospect&choix=supprimer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
+                                    <a href="${pageContext.request.contextPath}/infoSocieteServlet?societe=prospect&choix=supprimer" class="text-reversoLight hover:bg-reversoLight hover:text-reversoDark">
                                         Supprimer
                                     </a>
                                 </li>

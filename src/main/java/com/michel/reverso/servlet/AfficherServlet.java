@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "afficherServlet", value = "/afficherServlet")
-public class afficherServlet extends HttpServlet {
+public class AfficherServlet extends HttpServlet {
 
     @Override
     public void init() {
@@ -26,6 +26,10 @@ public class afficherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String societe = request.getParameter("societe");
         String choix = request.getParameter("choix");
+
+        //Stockage des données dans l'objet request
+        request.setAttribute("societe", societe);
+        request.setAttribute("choix", choix);
 
         if (societe.equals("client")){
             try {

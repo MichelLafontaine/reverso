@@ -12,7 +12,7 @@ import java.io.IOException;
 public class modifFilter implements Filter {
 
 
-    public static final String ACCES_CONNEXION = "/connectServlet";
+    public static final String NOT_CONNECTION_SERVLET = "/notConnectionServlet";
     public static final String ATT_SESSION_USER = "sessionUser";
 
     @Override
@@ -44,7 +44,7 @@ public class modifFilter implements Filter {
          */
         if (session.getAttribute(ATT_SESSION_USER) == null) {
             /* Redirection vers la page de connexion */
-            myResponse.sendRedirect( myRequest.getContextPath() + ACCES_CONNEXION );
+            myResponse.sendRedirect( myRequest.getContextPath() + NOT_CONNECTION_SERVLET);
             //myRequest.getRequestDispatcher(ACCES_CONNEXION).forward(myRequest, myResponse);
         } else {
             /* Affichage de la page restreinte */

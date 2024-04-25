@@ -26,13 +26,13 @@
 </head>
 <body class="bg-reversoLight flex flex-col justify-between h-screen">
 <header>
-    <jsp:include page="header.jsp" />
+    <jsp:include page="template/header.jsp" />
 </header>
-<main class="flex justify-center flex-grow mt-3 items-start">
+<main class="flex justify-center mt-3 text-reversoDark font-bold md:text-2xl">
     <p>Le ${param.societe} ${param.raisonSociale} a bien été ${param.choix}</p>
 </main>
 <footer>
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="template/footer.jsp" />
 </footer>
 <script src="./js/accueil.js"></script>
 </body>

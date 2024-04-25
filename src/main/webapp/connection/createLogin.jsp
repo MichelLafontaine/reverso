@@ -26,7 +26,7 @@
 </head>
 <body class="flex flex-col justify-between h-screen bg-reversoLight">
 <header>
-    <jsp:include page="header.jsp" />
+    <jsp:include page="../template/header.jsp" />
 </header>
 <main>
     <div class="min-h-screen flex items-center justify-center w-full">
@@ -61,16 +61,17 @@
                         class="bg-reversoLight font-bold w-full flex justify-center py-2 px-4 border border-transparent mt-10
                         rounded-md shadow-sm text-sm text-reversoDark hover:bg-reversoDark hover:ring-2 hover:text-reversoLight
                         hover:ring-reversoLight focus:outline-none focus:ring-2 focus:ring-offset-2
-                        focus:ring-indigo-500">Login</button>
+                        focus:ring-indigo-500">Login
+                </button>
             </form>
         </div>
 
     </div>
 </main>
 <footer>
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="../template/footer.jsp" />
 </footer>
 <script src="js/createLogin.js"></script>
-<script src="./js/accueil.js"></script>
+<script src="js/accueil.js"></script>
 </body>
 </html>

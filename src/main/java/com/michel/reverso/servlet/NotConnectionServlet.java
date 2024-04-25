@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "accueilServlet", value = "/accueilServlet")
-public class accueilServlet extends HttpServlet {
+@WebServlet(name = "notConnectionServlet", value = "/notConnectionServlet")
+public class NotConnectionServlet extends HttpServlet {
 
     @Override
     public void init() {
@@ -19,7 +19,7 @@ public class accueilServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/accueil.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("connection/notconnection.jsp");
         rd.forward(request, response);
     }
 

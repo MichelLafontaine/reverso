@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "aboutServlet", value = "/aboutServlet")
-public class aboutServlet extends HttpServlet {
+@WebServlet(name = "confirmationServlet", value = "/confirmationServlet")
+public class ConfirmationServlet extends HttpServlet {
 
     @Override
     public void init() {
@@ -19,7 +19,16 @@ public class aboutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/about.jsp");
+        String societe = request.getParameter("societe");
+        String raisonSociale = request.getParameter("raisonSociale");
+        String choix = request.getParameter("choix");
+
+        //Stockage des données dans l'objet request
+        request.setAttribute("societe", societe);
+        request.setAttribute("raisonSociale", raisonSociale);
+        request.setAttribute("choix", choix);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/confirmation.jsp");
         rd.forward(request, response);
     }
 

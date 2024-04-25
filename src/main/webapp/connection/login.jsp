@@ -26,7 +26,7 @@
 </head>
 <body class="flex flex-col justify-between h-screen bg-reversoLight">
 <header>
-    <jsp:include page="header.jsp" />
+    <jsp:include page="../template/header.jsp" />
 </header>
 <main>
     <div class="min-h-screen flex items-center justify-center w-full">
@@ -40,9 +40,9 @@
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-reversoLight mb-2">Password</label>
                     <input type="password" id="password" name="password" class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your password" required>
-                    <a href="#"
-                       class="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Forgot
-                        Password?</a>
+                    <a href="<%=request.getContextPath()%>/oubliMDPServlet"
+                       class="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2
+                       focus:ring-offset-2 focus:ring-indigo-500">Forgot Password?</a>
                 </div>
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center">
@@ -50,9 +50,10 @@
                         <label for="remember" class="ml-2 block text-sm text-reversoLight">Remember me</label>
                     </div>
                     <a href="<%=request.getContextPath()%>/createLoginServlet"
-                       class="text-xs font-bold text-reversoLight hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create
-                        Account</a>
+                       class="text-xs font-bold text-reversoLight hover:text-indigo-700 focus:outline-none
+                        focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create Account</a>
                 </div>
+                <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                 <p class="text-red-600 text-xl">${errorMessage}</p>
                 <button type="submit"
                         class="bg-reversoLight font-bold w-full flex justify-center py-2 px-4 border border-transparent
@@ -65,8 +66,8 @@
     </div>
 </main>
 <footer>
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="../template/footer.jsp" />
 </footer>
-<script src="./js/accueil.js"></script>
+<script src="js/accueil.js"></script>
 </body>
 </html>

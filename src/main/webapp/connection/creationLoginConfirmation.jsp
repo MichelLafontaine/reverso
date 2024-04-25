@@ -26,7 +26,7 @@
 </head>
 <body class="flex flex-col justify-between h-screen bg-reversoLight">
 <header>
-    <jsp:include page="header.jsp" />
+    <jsp:include page="../template/header.jsp" />
 </header>
 <main class="flex w-full h-screen bg-contain bg-no-repeat bg-center md:items-start justify-center md:content-center">
     <div class="min-h-screen flex items-center justify-center w-full">
@@ -35,8 +35,8 @@
 </main>
 
 <footer>
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="../template/footer.jsp" />
 </footer>
-<script src="./js/accueil.js"></script>
+<script src="js/accueil.js"></script>
 </body>
 </html>
