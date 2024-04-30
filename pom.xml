@@ -102,6 +102,11 @@
           <version>2.11</version>
       </dependency>
 
+      <properties>
+          <sonar.organization>michellafontaine</sonar.organization>
+          <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+      </properties>
+
 
   </dependencies>
 
