@@ -27,11 +27,11 @@
 </head>
 <body class="bg-reversoLight flex flex-col justify-between h-screen">
     <header>
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="template/header.jsp"/>
     </header>
-    <main class="flex justify-center flex-grow mt-3 items-start">
+    <main class="flex justify-center flex-grow items-start md:mt-28 mt-16 mb-20">
         <div class="overflow-auto">
-            <table class="border border-reversoDark border-2">
+            <table class="border-reversoDark border-2">
                 <tr>
                     <th class="border border-reversoDark text-center p-3">Raison Sociale</th>
                     <th class="border border-reversoDark text-center p-3">Numéro de rue</th>
@@ -98,9 +98,7 @@
         </div>
 
     </main>
-    <footer>
-        <jsp:include page="footer.jsp"/>
-    </footer>
+        <jsp:include page="template/footer.jsp"/>
     <script src="js/afficher.js"></script>
     <script src="js/accueil.js"></script>
 </body>

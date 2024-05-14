@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "confirmationServlet", value = "/confirmationServlet")
-public class confirmationServlet extends HttpServlet {
+public class ConfirmationServlet extends HttpServlet {
 
     @Override
     public void init() {
