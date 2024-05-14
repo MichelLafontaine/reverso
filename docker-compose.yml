@@ -19,10 +19,6 @@ services:
   tomcat:
     container_name: app-tomcat
     image: tomcat:latest
-    volumes:
-      - ./webapps:/usr/local/tomcat/webapps
-    environment:
-      - CATALINA_OPTS="-Xms512M -Xmx1024M"
     restart: always
     #image: tomcat:10
     env_file:
@@ -31,11 +27,12 @@ services:
       - mysql
     ports:
       - "8080:8080"
-#    volumes:
-#      - ./app/deploy:/usr/local/tomcat/webapps
-#      - ./infra/tomcat/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
-#      - ./infra/tomcat/server.xml:/usr/local/tomcat/conf/server.xml
-#    # command: ["catalina.sh", "run"]
+    volumes:
+      - ./app/deploy:/usr/local/tomcat/webapps
+      - ./infra/tomcat/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - ./infra/tomcat/server.xml:/usr/local/tomcat/conf/server.xml
+      - - ./webapps:/usr/local/tomcat/webapps
+    # command: ["catalina.sh", "run"]
     networks:
       - app
 
