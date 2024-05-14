@@ -1,0 +1,70 @@
+name: reverso-web
+
+services:
+  app-maven:
+    container_name: app-maven
+    image: maven:3.8.3-jdk-11
+    volumes:
+      - ./app:/app
+      - maven_repo:/root/.m2/repository
+      - ./infra/maven/settings.xml:/root/.m2/settings.xml
+    working_dir: /app
+    depends_on:
+      - tomcat
+    command: [ "sh", "-c", "mvn clean package && cp /app/target/*.war /app/deploy/" ]
+    # La commande Maven et la copie du .war sont maintenant combinées en une seule commande shell
+    networks:
+      - app
+
+  tomcat:
+    container_name: app-tomcat
+    image: tomcat:latest
+    volumes:
+      - ./webapps:/usr/local/tomcat/webapps
+    environment:
+      - CATALINA_OPTS="-Xms512M -Xmx1024M"
+    restart: always
+    #image: tomcat:10
+    env_file:
+      - "./.env"
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+#    volumes:
+#      - ./app/deploy:/usr/local/tomcat/webapps
+#      - ./infra/tomcat/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+#      - ./infra/tomcat/server.xml:/usr/local/tomcat/conf/server.xml
+#    # command: ["catalina.sh", "run"]
+    networks:
+      - app
+
+  mysql:
+    image: mysql:latest
+#    volumes:
+#      - ./infra/bdd/build:/dump
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MY_DATABASE: ecf_poo
+      MYSQL_USER: michel_lafontaine@orange.fr
+      MYSQL_PASSWORD: motdepasse!?
+    ports:
+      - "8036:3306"
+    networks:
+      - app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+
+#Docker Networks
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  maven_repo:

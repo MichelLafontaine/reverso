@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  28/02/2024 08:24:35                      */
+/* Date de crÃ©ation :  28/02/2024 08:24:35                      */
 /*==============================================================*/
 
 
@@ -16,18 +16,16 @@ drop table if exists CODE_POSTAL;
 
 drop table if exists VILLE;
 
-drop table if exists LOGIN;
-
 /*==============================================================*/
 /* Table : ADRESSE                                              */
 /*==============================================================*/
 create table ADRESSE
 (
-   ID_ADRESSE           int not null auto_increment,
-   ID_CP                int not null,
-   NUM_ADRESSE          varchar(10) not null,
-   RUE_ADRESSE          varchar(150) not null,
-   primary key (ID_ADRESSE)
+    ID_ADRESSE           int not null auto_increment,
+    ID_CP                int not null,
+    NUM_ADRESSE          varchar(10) not null,
+    RUE_ADRESSE          varchar(150) not null,
+    primary key (ID_ADRESSE)
 );
 
 /*==============================================================*/
@@ -35,9 +33,9 @@ create table ADRESSE
 /*==============================================================*/
 create table CLIENT
 (
-   ID_CLIENT            int not null auto_increment,
-   ID_SOCIETE           int not null,
-   CA_CLIENT            float(15,2) not null CHECK (CA_CLIENT >= 200),
+    ID_CLIENT            int not null auto_increment,
+    ID_SOCIETE           int not null,
+    CA_CLIENT            float(15,2) not null CHECK (CA_CLIENT >= 200),
    NBRE_EMPLOYE         int not null CHECK (NBRE_EMPLOYE > 0),
    primary key (ID_CLIENT)
 );
@@ -47,10 +45,10 @@ create table CLIENT
 /*==============================================================*/
 create table CODE_POSTAL
 (
-   ID_CP                int not null auto_increment,
-   ID_VILLE             int not null,
-   NUM_CP               varchar(5) not null,
-   primary key (ID_CP)
+    ID_CP                int not null auto_increment,
+    ID_VILLE             int not null,
+    NUM_CP               varchar(5) not null,
+    primary key (ID_CP)
 );
 
 /*==============================================================*/
@@ -58,11 +56,11 @@ create table CODE_POSTAL
 /*==============================================================*/
 create table PROSPECT
 (
-   ID_PROSPECT         int not null auto_increment,
-   ID_SOCIETE           int not null,
-   DATE_PROSPECT        date not null,
-   INTERET_PROSPECT     int not null CHECK (INTERET_PROSPECT IN (0,1)),
-   primary key (ID_PROSPECT)
+    ID_PROSPECT         int not null auto_increment,
+    ID_SOCIETE           int not null,
+    DATE_PROSPECT        date not null,
+    INTERET_PROSPECT     int not null CHECK (INTERET_PROSPECT IN (0,1)),
+    primary key (ID_PROSPECT)
 );
 
 /*==============================================================*/
@@ -70,11 +68,11 @@ create table PROSPECT
 /*==============================================================*/
 create table SOCIETE
 (
-   ID_SOCIETE           int not null auto_increment,
-   NOM_SOCIETE          varchar(100) not null UNIQUE,
-   ID_ADRESSE           int not null,
-   TEL_SOCIETE          varchar(20) not null CHECK (LENGTH(TEL_SOCIETE) >= 10),
-   MAIL_SOCIETE         varchar(100) not null CHECK (MAIL_SOCIETE REGEXP '@'),
+    ID_SOCIETE           int not null auto_increment,
+    NOM_SOCIETE          varchar(100) not null UNIQUE,
+    ID_ADRESSE           int not null,
+    TEL_SOCIETE          varchar(20) not null CHECK (LENGTH(TEL_SOCIETE) >= 10),
+    MAIL_SOCIETE         varchar(100) not null CHECK (MAIL_SOCIETE REGEXP '@'),
    COM_SOCIETE          text,
    primary key (ID_SOCIETE)
 );
@@ -84,40 +82,26 @@ create table SOCIETE
 /*==============================================================*/
 create table VILLE
 (
-   ID_VILLE             int not null auto_increment,
-   NOM_VILLE            varchar(50) not null,
-   primary key (ID_VILLE)
-);
-
-/*==============================================================*/
-/* Table : LOGIN                                              */
-/*==============================================================*/
-create table LOGIN
-(
-   ID_LOGIN             int not null auto_increment,
-   EMAIL_LOGIN          varchar(100) not null CHECK (EMAIL_LOGIN REGEXP '@'),
-   NOM_LOGIN            varchar(50) not null,
-   PRENOM_LOGIN         varchar(50) not null,
-   MOTDEPASSE_LOGIN     varchar(150) not null,
-   MOTDEPASSE_SALT      varchar(150) not null,
-   primary key (ID_LOGIN)
+    ID_VILLE             int not null auto_increment,
+    NOM_VILLE            varchar(50) not null,
+    primary key (ID_VILLE)
 );
 
 alter table ADRESSE add constraint FK_ASSOCIATION_3 foreign key (ID_CP)
-      references CODE_POSTAL (ID_CP) on delete restrict on update restrict;
+    references CODE_POSTAL (ID_CP) on delete restrict on update restrict;
 
 alter table CLIENT add constraint FK_ASSOCIATION_5 foreign key (ID_SOCIETE)
-      references SOCIETE (ID_SOCIETE) on delete restrict on update restrict;
+    references SOCIETE (ID_SOCIETE) on delete restrict on update restrict;
 
 alter table CODE_POSTAL add constraint FK_ASSOCIATION_4 foreign key (ID_VILLE)
-      references VILLE (ID_VILLE) on delete restrict on update restrict;
+    references VILLE (ID_VILLE) on delete restrict on update restrict;
 
 alter table PROSPECT add constraint FK_ASSOCIATION_6 foreign key (ID_SOCIETE)
-      references SOCIETE (ID_SOCIETE) on delete restrict on update restrict;
+    references SOCIETE (ID_SOCIETE) on delete restrict on update restrict;
 
 alter table SOCIETE add constraint FK_SE_SITUER foreign key (ID_ADRESSE)
-      references ADRESSE (ID_ADRESSE) on delete restrict on update restrict;
-	  
+    references ADRESSE (ID_ADRESSE) on delete restrict on update restrict;
+
 INSERT INTO `ville` (`ID_VILLE`, `NOM_VILLE`) VALUES (NULL, 'FROUARD');
 INSERT INTO `ville` (`ID_VILLE`, `NOM_VILLE`) VALUES (NULL, 'NANCY');
 INSERT INTO `ville` (`ID_VILLE`, `NOM_VILLE`) VALUES (NULL, 'METZ');
@@ -130,12 +114,12 @@ INSERT INTO `adresse` (`ID_ADRESSE`, `ID_CP`, `NUM_ADRESSE`, `RUE_ADRESSE`) VALU
 INSERT INTO `adresse` (`ID_ADRESSE`, `ID_CP`, `NUM_ADRESSE`, `RUE_ADRESSE`) VALUES (NULL, '2', '1', 'PLACE STANISLAS');
 INSERT INTO `adresse` (`ID_ADRESSE`, `ID_CP`, `NUM_ADRESSE`, `RUE_ADRESSE`) VALUES (NULL, '3', '1', 'PLACE D\'ARMES');
 
-INSERT INTO `societe` (`ID_SOCIETE`, `NOM_SOCIETE`, `ID_ADRESSE`, `TEL_SOCIETE`, `MAIL_SOCIETE`, `COM_SOCIETE`) 
+INSERT INTO `societe` (`ID_SOCIETE`, `NOM_SOCIETE`, `ID_ADRESSE`, `TEL_SOCIETE`, `MAIL_SOCIETE`, `COM_SOCIETE`)
 VALUES (NULL, 'AFPA', '1', '0972723936', 'contactafpapompey@afpa.fr', 'Centre de formation ');
-INSERT INTO `societe` (`ID_SOCIETE`, `NOM_SOCIETE`, `ID_ADRESSE`, `TEL_SOCIETE`, `MAIL_SOCIETE`, `COM_SOCIETE`) 
-VALUES (NULL, 'MAIRIE DE NANCY', '2', '0383853000', 'contact@nancy.fr', 'Bâtiment de la mairie placé sur une zone piétonne.');
-INSERT INTO `societe` (`ID_SOCIETE`, `NOM_SOCIETE`, `ID_ADRESSE`, `TEL_SOCIETE`, `MAIL_SOCIETE`, `COM_SOCIETE`) 
-VALUES (NULL, 'MAIRIE DE METZ', '1', '0800891891', 'contact@metz.fr', 'Mairie placé en face de la cathédrale');
+INSERT INTO `societe` (`ID_SOCIETE`, `NOM_SOCIETE`, `ID_ADRESSE`, `TEL_SOCIETE`, `MAIL_SOCIETE`, `COM_SOCIETE`)
+VALUES (NULL, 'MAIRIE DE NANCY', '2', '0383853000', 'contact@nancy.fr', 'BÃ¢timent de la mairie placÃ© sur une zone piÃ©tonne.');
+INSERT INTO `societe` (`ID_SOCIETE`, `NOM_SOCIETE`, `ID_ADRESSE`, `TEL_SOCIETE`, `MAIL_SOCIETE`, `COM_SOCIETE`)
+VALUES (NULL, 'MAIRIE DE METZ', '1', '0800891891', 'contact@metz.fr', 'Mairie placÃ© en face de la cathÃ©drale');
 
 INSERT INTO `client` (`ID_CLIENT`, `ID_SOCIETE`, `CA_CLIENT`, `NBRE_EMPLOYE`) VALUES (NULL, '1', '1000000.00', '20');
 
